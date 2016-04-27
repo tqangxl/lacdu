@@ -9,4 +9,4 @@ escape.POSIXt <- dplyr:::escape.Date
 kippco.db <- src_postgres('kippco')
 
 # Insert new values
-db_insert_into(kippco.db, liveschool, ls.insert)
+db_insert_into(kippco.db$con, 'liveschool', ls.insert)
