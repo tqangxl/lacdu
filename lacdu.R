@@ -21,4 +21,5 @@ source('2-transform.R')
 # Email report
 source('4-email.R')
 
-# TODO: Insert ls.insert into the liveschool table 5-database.R
+# Insert ls.insert into the liveschool table
+source('5-database.R')
