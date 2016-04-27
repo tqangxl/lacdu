@@ -45,5 +45,5 @@ ls.insert <- ls.df %>%
            behavior_points = behavior_amount,
            comments = conduct_comment,
            entry_time) %>%
-    filter(entry_time >= ymd_hms(paste(Sys.Date()-1, '14:00:00'), tz = 'MST') & 
-        entry_time < ymd_hms(paste(Sys.Date(), '11:00:00'), tz = 'MST'))
+    filter(entry_time > ymd_hms(paste(Sys.Date()-1, '15:30:00'), tz = 'MST') & 
+        entry_time <= ymd_hms(paste(Sys.Date(), '15:30:00'), tz = 'MST'))
