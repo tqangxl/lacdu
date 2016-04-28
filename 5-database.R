@@ -2,6 +2,7 @@
 # Author Peter W Setter
 # Download LiveSchool points log
 
+# Source: https://github.com/hadley/dplyr/issues/857
 # Handle escape error 
 escape.POSIXt <- dplyr:::escape.Date
 

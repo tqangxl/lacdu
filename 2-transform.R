@@ -36,6 +36,8 @@ daily.wallstreet <- ls.df %>%
            conduct_comment)
 
 # Select records and columns to add to database
+# In order to avoid duplicates, select data between Wall Streets.
+# TODO: Add Friday afternoon data. Separate script & cron job?
 ls.insert <- ls.df %>%
     select(conduct_id,
            student_id = student_number,

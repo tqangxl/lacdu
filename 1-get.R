@@ -2,20 +2,28 @@
 # Author Peter W Setter
 # Download LiveSchool points log
 
+## Function definitions
+Logout <- function(url) {
+    repeat {
+        logout <- GET(url)
+        if(logout$status == 200) return(1)
+        else print('Trying again...')
+    }
+}
+
 ########
 
 # Pull Data from LiveSchool
-# TODO: Ensure that API call is completed (Added repeat loops)
+# TODO: Ensure that API call is completed (Added repeat loops; is there a better solution?)
 # TODO: Convert to a function so it can be called for every site
 load('.KMCHS-LS.RData')
 
-# Logout of previous session
-repeat {
-    logout <- GET('https://admin.liveschoolinc.com/logout')
-    if(logout$status == 200) break
-    else print('Trying again...')
-}
+# Defensive: Logout in case of previous open session
+logout.url <- 'https://admin.liveschoolinc.com/logout'
 
+Logout(logout.url)
+
+# Login
 repeat {
     login <- POST('https://admin.liveschoolinc.com/', 
                  body = list(username = KMCHS.username, password = KMCHS.password))
@@ -35,3 +43,6 @@ repeat {
     if(ls.data$status == 200) break
     else print('Trying again...')
 }
+
+# Close out call
+Logout(logout.url)
