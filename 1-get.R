@@ -25,8 +25,10 @@ repeat {
 
 rm(KMCHS.username, KMCHS.password)
 
+# Time for API call is 12 hours ahead of Mountain Time
+# Use Sys.Date + 1 in order to request records for after 12:00 PM
 api.call <- paste0('https://admin.liveschoolinc.com/api?action=genericconducts2&mode=reports&from=', 
-    Sys.Date()-1, '&to=', Sys.Date())
+    Sys.Date(), '&to=', Sys.Date() + 1)
 
 repeat {
     ls.data <- GET(api.call)
