@@ -16,15 +16,36 @@ repeat {
     else print('Trying again...')
 }
 
-call.request <- paste0('https://api.twilio.com/2010-04-01/',
+# Build API request
+call.request <- paste0(auth.request, '/',
                        twilio.sid,
                        '/Calls')
 
-call.response <- POST(call.request,
-                      body = list(From = twilio.number,
-                                  To = current.number,
-                                  ApplicationSid = ))
+# Reference to TWIML file with instructions
+call.orders <- 'https://raw.githubusercontent.com/peterwsetter/lacdu/master/twiml-test.xml'
 
+# Merge primary phone numbers
+# TODO: Add real numbers
+# Number format: +11234567890
+
+load('test-numbers.RData')
+
+num.calls <- nrow(daily.wallstreet)
+
+phonenumber <- rep(test.numbers, ceiling(num.calls / 3))[1:num.calls]
+
+call.list <- daily.wallstreet %>%
+    cbind(phonenumber)
+
+for(i in 1:3) {        
+    current.number <- call.list[i, 'phonenumber'] %>% as.character
+        
+    call.response <- POST(call.request,
+                      body = list(From = twilio.phonenumber,
+                                  To = current.number,
+                                  Url = call.orders))
+    if(call.response$status != 200) print(content(call.response))
+}
 
 # Clean-up
 rm(twilio.sid, twilio.token, twilio.phonenumber)
