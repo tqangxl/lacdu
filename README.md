@@ -1,5 +1,5 @@
 # lacdu
-Liveschool Auto-Call and Database Update
+LiveSchool Auto-Call and Database Update
 
 This script is a proof-of-concept and under development. It has not be tested in production.
 
@@ -22,4 +22,5 @@ Platform: x86_64-redhat-linux-gnu
 
 ### Before You Start
 
-`gmailr` must be connected to a Gmail account. This script connects to a PostgreSQL database with a table named "liveschool". `RPostgreSQL` must be installed, which depends on `postgresql-devel`. `httr` depends on `openssl-devel` and `libcurl-devel`. 
+`gmailr` must be connected to a Gmail account. This script connects to a PostgreSQL database with a table named "liveschool". `RPostgreSQL` must be installed, which depends on `postgresql-devel`. `httr` depends on `openssl-devel` and `libcurl-devel`. Calls are made using [Twilio](https://www.twilio.com). There are several files in this script that score authentication objects.
+

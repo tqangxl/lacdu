@@ -16,7 +16,8 @@ source('1-get.R')
 # Transform the data
 source('2-transform.R')
 
-# TODO: Make calls 3-call.R
+# Make calls 
+source('3-call.R')
 
 # Email report
 source('4-email.R')
