@@ -24,16 +24,15 @@ ls.df <- lapply(ls.report, function(x) {
                                         orders = '%Y-%m-%d %I:%M:%S %p'))
 
 # Select records and columns for Wall Street
-# TODO: Add and sort by advisory
+# TODO: Add advisory and grade then sort by these fields
+# ToDO: Sum the number of Wall Streets, combine behavior_name rows and conduct_comment rows
 daily.wallstreet <- ls.df %>%
     filter(entry_time >= ymd_hms(paste(Sys.Date(), '00:00:00'), tz = 'MST'),
            standard_name == 'Wall Street') %>%
-    select(student_number,
-           student_last_name,
-           student_first_name,
-           user_last_name,
-           user_first_name,
-           conduct_comment)
+    group_by(student_last_name, student_first_name) %>%
+    summarize(wall_streets = n(),
+              # Source: http://stackoverflow.com/a/20854935/5408193
+              notes = paste(behavior_name, conduct_comment, collapse = '; '))
 
 # Select records and columns to add to database
 # In order to avoid duplicates, select data between Wall Streets.

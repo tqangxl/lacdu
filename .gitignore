@@ -1,3 +1,7 @@
 .httr-oauth
 
-.KMCHS-LS-RData
+.KMCHS-LS.RData
+
+.twilio.RData
+
+.Rhistory

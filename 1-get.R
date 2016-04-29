@@ -6,14 +6,13 @@
 Logout <- function(url) {
     repeat {
         logout <- GET(url)
-        if(logout$status == 200) return(1)
+        if(logout$status == 200) return(0)
         else print('Trying again...')
     }
 }
 
 ########
-
-# Pull Data from LiveSchool
+## Pull Data from LiveSchool
 # TODO: Ensure that API call is completed (Added repeat loops; is there a better solution?)
 # TODO: Convert to a function so it can be called for every site
 load('.KMCHS-LS.RData')
@@ -38,6 +37,7 @@ rm(KMCHS.username, KMCHS.password)
 api.call <- paste0('https://admin.liveschoolinc.com/api?action=genericconducts2&mode=reports&from=', 
     Sys.Date(), '&to=', Sys.Date() + 1)
 
+# TODO: Check for valid input
 repeat {
     ls.data <- GET(api.call)
     if(ls.data$status == 200) break
