@@ -3,6 +3,7 @@
 # Call families of students with Wall Street
 # This code is for testing.
 # TODO: Access table of primary contact numbers & merge onto list
+# Source: https://dreamtolearn.com/ryan/data_analytics_viz/78
 
 load('.twilio.RData')
 # Authenticate with Twilio
@@ -44,7 +45,7 @@ for(i in 1:3) {
                       body = list(From = twilio.phonenumber,
                                   To = current.number,
                                   Url = call.orders))
-    if(call.response$status != 200) print(content(call.response))
+    if(call.response$status != 201) print(content(call.response))
 }
 
 # Clean-up
