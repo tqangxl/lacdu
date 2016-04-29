@@ -13,7 +13,7 @@ auth.request <- paste0('https://', twilio.sid, ':', twilio.token,
 
 repeat {
     auth.response <- GET(auth.request)
-    if(login$status == 200) break
+    if(login$status == 201) break
     else print('Trying again...')
 }
 
@@ -45,6 +45,7 @@ for(i in 1:3) {
                       body = list(From = twilio.phonenumber,
                                   To = current.number,
                                   Url = call.orders))
+    # Printing the response requires the xml2 package
     if(call.response$status != 201) print(content(call.response))
 }
 
