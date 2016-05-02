@@ -7,7 +7,7 @@ Logout <- function(url) {
     repeat {
         logout <- GET(url)
         if(logout$status == 200) return(0)
-        else print('Trying again...')
+        else print('Trying to logout of LiveSchool again...')
     }
 }
 
@@ -27,7 +27,7 @@ repeat {
     login <- POST('https://admin.liveschoolinc.com/', 
                  body = list(username = KMCHS.username, password = KMCHS.password))
     if(login$status == 200) break
-    else print('Trying again...')
+    else print('Trying to login to LiveSchool again...')
 }
 
 rm(KMCHS.username, KMCHS.password)
@@ -41,7 +41,7 @@ api.call <- paste0('https://admin.liveschoolinc.com/api?action=genericconducts2&
 repeat {
     ls.data <- GET(api.call)
     if(ls.data$status == 200) break
-    else print('Trying again...')
+    else print('Trying get LiveSchool data again...')
 }
 
 # Close out call

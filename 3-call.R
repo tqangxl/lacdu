@@ -12,8 +12,8 @@ auth.request <- paste0('https://', twilio.sid, ':', twilio.token,
 
 repeat {
     auth.response <- GET(auth.request)
-    if(login$status == 201) break
-    else print('Trying again...')
+    if(login$status == 200) break
+    else print('Trying to authenticate with Twilio again...')
 }
 
 # Build API request
