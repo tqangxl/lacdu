@@ -1,8 +1,7 @@
 # Copyright KIPP Colorado Schools 2016
 # Author Peter W Setter
 # Call families of students with Wall Street
-# This code is for testing.
-# TODO: Access table of primary contact numbers & merge onto list
+# This code is for testing and does not use acutal contact numbers.
 # Source: https://dreamtolearn.com/ryan/data_analytics_viz/78
 
 load('.twilio.RData')
