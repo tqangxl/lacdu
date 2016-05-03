@@ -6,7 +6,7 @@
 Logout <- function(url) {
     for(i in 1:5) {
         logout <- GET(url)
-        if(logout$status == 200) break
+        if(logout$status == 200) return(0)
     }
     CallHelp('Cannot logout of LiveSchool.')
     stop('Cannot logout of LiveSchool.')
