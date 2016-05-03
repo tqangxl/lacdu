@@ -14,6 +14,7 @@ for(i in 1:5) {
     auth.response <- GET(auth.request)
     if(auth.response$status %in% c(200, 201)) break
     if(i == 5) CallHelp('Cannot auth with Twilio'); stop('Cannot auth with Twilio')
+    Sys.sleep(30)
 }
 
 # Build API request
@@ -43,11 +44,8 @@ for(i in 1:3) {
                                       To = current.number,
                                       Url = call.orders))
     # Printing the response requires the xml2 package
-    if(call.response$status != 201) print(content(call.response)); CallHelp('Call Failed')
+    if(call.response$status <= 201) print(content(call.response)); CallHelp('Call Failed')
 }
-
-
-
 
 # Clean-up
 rm(twilio.sid, twilio.token, twilio.phonenumber)

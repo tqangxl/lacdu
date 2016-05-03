@@ -7,6 +7,7 @@ Logout <- function(url) {
     for(i in 1:5) {
         logout <- GET(url)
         if(logout$status == 200) return(0)
+        Sys.sleep(30)
     }
     CallHelp('Cannot logout of LiveSchool.')
     stop('Cannot logout of LiveSchool.')
@@ -28,6 +29,7 @@ for(i in 1:5) {
                  body = list(username = KMCHS.username, password = KMCHS.password))
     if(login$status == 200) break
     if(i == 5) CallHelp('Cannot login to LiveSchool'); stop('Cannot login to LiveSchool')
+    Sys.sleep(30)
 }
 
 rm(KMCHS.username, KMCHS.password)
@@ -41,7 +43,8 @@ api.call <- paste0('https://admin.liveschoolinc.com/api?action=genericconducts2&
 for(i in 1:5) {
     ls.data <- GET(api.call)
     if(ls.data$status == 200) break
-    if(i == 5) CallHelp('Did not receive LiveSchool data'); stop('Did not receive LiveShool data') 
+    if(i == 5) CallHelp('Did not receive LiveSchool data'); stop('Did not receive LiveShool data')
+    Sys.sleep(30)
 }
 
 # Close out call

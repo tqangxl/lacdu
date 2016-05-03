@@ -2,6 +2,10 @@
 # Author Peter W Setter
 # ETL LiveSchool data for automated calls and loading into database
 
+# Used to demark current run in stdout
+print(Sys.Date())
+
+
 ########
 # Library Calls
 library(httr)
@@ -19,8 +23,6 @@ CallHelp <- function(message) {
 
 
 ########
-print(Sys.Date())
-
 # Extract Data
 source('1-get.R')
 
