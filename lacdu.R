@@ -19,6 +19,8 @@ CallHelp <- function(message) {
 
 
 ########
+print(Sys.Date())
+
 # Extract Data
 source('1-get.R')
 
