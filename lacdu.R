@@ -10,6 +10,15 @@ library(lubridate)
 library(gmailr)
 
 ########
+# Function Definitions
+CallHelp <- function(message) {
+    send_message(mime(from = 'data@climb.kippcolorado.org',
+                      to = 'psetter@kippcolorado.org',
+                      subject = message))
+}
+
+
+########
 # Extract Data
 source('1-get.R')
 

@@ -4,16 +4,16 @@
 
 ## Function definitions
 Logout <- function(url) {
-    repeat {
+    for(i in 1:5) {
         logout <- GET(url)
-        if(logout$status == 200) return(0)
-        else print('Trying to logout of LiveSchool again...')
+        if(logout$status == 200) break
     }
+    CallHelp('Cannot logout of LiveSchool.')
+    stop('Cannot logout of LiveSchool.')
 }
 
 ########
 ## Pull Data from LiveSchool
-# TODO: Ensure that API call is completed (Added repeat loops; is there a better solution?)
 # TODO: Convert to a function so it can be called for every site
 load('.KMCHS-LS.RData')
 
@@ -23,11 +23,11 @@ logout.url <- 'https://admin.liveschoolinc.com/logout'
 Logout(logout.url)
 
 # Login
-repeat {
+for(i in 1:5) {
     login <- POST('https://admin.liveschoolinc.com/', 
                  body = list(username = KMCHS.username, password = KMCHS.password))
     if(login$status == 200) break
-    else print('Trying to login to LiveSchool again...')
+    if(i == 5) CallHelp('Cannot login to LiveSchool'); stop('Cannot login to LiveSchool')
 }
 
 rm(KMCHS.username, KMCHS.password)
@@ -38,10 +38,10 @@ api.call <- paste0('https://admin.liveschoolinc.com/api?action=genericconducts2&
     Sys.Date(), '&to=', Sys.Date() + 1)
 
 # TODO: Check for valid input
-repeat {
+for(i in 1:5) {
     ls.data <- GET(api.call)
     if(ls.data$status == 200) break
-    else print('Trying get LiveSchool data again...')
+    if(i == 5) CallHelp('Did not receive LiveShool data'); stop('Did not receive LiveShool data') 
 }
 
 # Close out call
