@@ -41,7 +41,7 @@ api.call <- paste0('https://admin.liveschoolinc.com/api?action=genericconducts2&
 for(i in 1:5) {
     ls.data <- GET(api.call)
     if(ls.data$status == 200) break
-    if(i == 5) CallHelp('Did not receive LiveShool data'); stop('Did not receive LiveShool data') 
+    if(i == 5) CallHelp('Did not receive LiveSchool data'); stop('Did not receive LiveShool data') 
 }
 
 # Close out call

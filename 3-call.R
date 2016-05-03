@@ -30,23 +30,24 @@ call.orders <- 'https://raw.githubusercontent.com/peterwsetter/lacdu/master/twim
 
 load('test-numbers.RData')
 
-num.calls <- nrow(daily.wallstreet)
-
 phonenumber <- rep(test.numbers, ceiling(num.calls / 3))[1:num.calls]
 
 call.list <- daily.wallstreet %>%
     cbind(phonenumber)
-
+    
 for(i in 1:3) {        
     current.number <- call.list[i, 'phonenumber'] %>% as.character
-        
+    
     call.response <- POST(call.request,
-                      body = list(From = twilio.phonenumber,
-                                  To = current.number,
-                                  Url = call.orders))
+                          body = list(From = twilio.phonenumber,
+                                      To = current.number,
+                                      Url = call.orders))
     # Printing the response requires the xml2 package
     if(call.response$status != 201) print(content(call.response)); CallHelp('Call Failed')
 }
+
+
+
 
 # Clean-up
 rm(twilio.sid, twilio.token, twilio.phonenumber)

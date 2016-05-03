@@ -27,8 +27,10 @@ source('1-get.R')
 # Transform the data
 source('2-transform.R')
 
+num.calls <- nrow(daily.wallstreet)
+
 # Make calls 
-source('3-call.R')
+if(num.calls > 0) source('3-call.R')
 
 # Email report
 source('4-email.R')
