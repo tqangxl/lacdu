@@ -44,7 +44,12 @@ for(i in 1:3) {
                                       To = current.number,
                                       Url = call.orders))
     # Printing the response requires the xml2 package
-    if(call.response$status > 201) print(content(call.response)); CallHelp('Call Failed')
+    if(call.response$status != 201) {
+        print(paste(call.list[i, 'student_last_name'],
+              call.list[i, 'student_first_name'], 
+              call.response$status))
+        CallHelp('Call Failed')
+    }
 }
 
 # Clean-up
