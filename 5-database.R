@@ -1,6 +1,6 @@
 # Copyright KIPP Colorado Schools 2016
 # Author Peter W Setter
-# Download LiveSchool points log
+# Insert records from the past 24 hours into database
 
 # Source: https://github.com/hadley/dplyr/issues/857
 # Handle escape error 

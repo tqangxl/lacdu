@@ -26,6 +26,6 @@ Platform: x86_64-redhat-linux-gnu
 - [`RPostgreSQL`](https://code.google.com/p/rpostgresql/) must be installed, which depends on `postgresql-devel`.
 - [`httr`](https://github.com/hadley/httr) must be installed, which depends on `openssl-devel` and `libcurl-devel`.
 - Response objects from Twilio are in xml. In printing requires the [`xml2`](	https://github.com/hadley/xml2) package, which depends on `libxml2-devel`
-- This script connects to a PostgreSQL database with a table named "liveschool".   
+- This script connects to a PostgreSQL database called "kippco" with a table named "liveschool".   
 - There are several files in this script that store authentication objects.
 - Making phone calls with Twilio requires an [TwiML](https://www.twilio.com/docs/api/twiml) file accessible via a public url. The file twiml-test.xml is hosted on Github.
