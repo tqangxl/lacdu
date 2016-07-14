@@ -38,4 +38,4 @@ if(num.calls > 0) source('3-call.R')
 source('4-email.R')
 
 # Insert ls.insert into the liveschool table
-source('5-database.R')
+#source('5-database.R')

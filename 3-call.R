@@ -52,7 +52,7 @@ sms.request <- paste0(auth.request, '/',
                       '/Messages')
 
 # Reference to TWIML file with instructions
-call.orders <- 'https://raw.githubusercontent.com/peterwsetter/lacdu/master/twiml-test.xml'
+call.orders <- 'https://handler.twilio.com/twiml/EH0a4d09a9a77bf90af8c63114d59932f6'
 
 # Merge primary phone numbers
 # TODO: Add real numbers

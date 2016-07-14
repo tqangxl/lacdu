@@ -26,8 +26,8 @@ ls.df <- lapply(ls.report, function(x) {
 # Select records and columns for Wall Street
 # TODO: Add advisory and grade then sort by these fields
 daily.wallstreet <- ls.df %>%
-    filter(entry_time >= ymd_hms(paste(Sys.Date(), '00:00:00'), tz = 'MST'),
-        #entry_time >= ymd_hms(paste('2016-05-11', '00:00:00'), tz = 'MST'),
+    filter(#entry_time >= ymd_hms(paste(Sys.Date(), '00:00:00'), tz = 'MST'),
+           entry_time >= ymd_hms(paste('2016-05-11', '00:00:00'), tz = 'MST'),
            standard_name == 'Wall Street') %>%
     group_by(student_number, student_last_name, student_first_name) %>%
     summarize(wall_streets = n(),

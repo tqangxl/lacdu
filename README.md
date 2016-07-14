@@ -1,5 +1,4 @@
-# lacdu
-LiveSchool Auto-Call and Database Update
+# Consequence Communication System
 
 This script is a proof-of-concept and under development. It has not be tested in production.
 
@@ -7,8 +6,8 @@ This script is a proof-of-concept and under development. It has not be tested in
 This script performs the following tasks:
 
 1. Obtains behavior data from [LiveSchool](http://www.liveschoolinc.com) through their API
-2. Determines which students earned the after-school consequence. (Wall Street)
-3. Calls the families of the students using [Twilio](http://www.twilio.com)
+2. Determines which students earned the after-school consequence.
+3. Calls and texts the families of the students using [Twilio](http://www.twilio.com) and emails using gmailr
 4. Emails the list of students to school staff
 5. Inserts data from the last 24 hours into a database
 
