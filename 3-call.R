@@ -1,11 +1,12 @@
 # Copyright KIPP Colorado Schools 2016
 # Author Peter W Setter
-# Call families of students with Wall Street
+# Call families of students who earned the consequence
 # This code is for testing and does not use acutal contact numbers.
 # Source: https://dreamtolearn.com/ryan/data_analytics_viz/78
 
 ########
 ## Function Definitions
+# TODO: Add failure info to list that can be sent to office staff
 CheckTwilioResponse <- function(response.object, current.student, current.number) {
     # Check if Twilio response status was successful
     if(response.object$status != 201) {
@@ -50,9 +51,6 @@ call.request <- paste0(auth.request, '/',
 sms.request <- paste0(auth.request, '/',
                       twilio.sid,
                       '/Messages')
-
-# Reference to TWIML file with instructions
-call.orders <- 'https://handler.twilio.com/twiml/EH0a4d09a9a77bf90af8c63114d59932f6'
 
 # Merge primary phone numbers
 # TODO: Add real numbers

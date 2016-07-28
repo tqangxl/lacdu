@@ -15,8 +15,6 @@ Logout <- function(url) {
 
 ########
 ## Pull Data from LiveSchool
-# TODO: Convert to a function so it can be called for every site
-load('.KMCHS-LS.RData')
 
 # Defensive: Logout in case of previous open session
 logout.url <- 'https://admin.liveschoolinc.com/logout'
@@ -26,19 +24,19 @@ Logout(logout.url)
 # Login
 for(i in 1:5) {
     login <- POST('https://admin.liveschoolinc.com/', 
-                 body = list(username = KMCHS.username, password = KMCHS.password))
+                 body = list(username = LS.username, password = LS.password))
     if(login$status == 200) break
     if(i == 5) CallHelp('Cannot login to LiveSchool'); stop('Cannot login to LiveSchool')
     Sys.sleep(30)
 }
 
-rm(KMCHS.username, KMCHS.password)
+rm(LS.username, LS.password)
 
 # Time for API call is 12 hours ahead of Mountain Time
 # Use Sys.Date + 1 in order to request records for after 12:00 PM
 api.call <- paste0('https://admin.liveschoolinc.com/api?action=genericconducts2&mode=reports&from=', 
     #Sys.Date(), '&to=', Sys.Date() + 1)
-    '2016-05-11', '&to=', '2016-05-12')
+    '2016-07-28', '&to=', '2016-07-29')
 # TODO: Check for valid input
 for(i in 1:5) {
     ls.data <- GET(api.call)

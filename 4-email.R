@@ -1,21 +1,25 @@
 # Copyright KIPP Colorado Schools 2016
 # Author Peter W Setter
-# Email Wall Street list
-# Input daily.wallstreet
+# Email staff a list of students earning an afterschool consequence
+# Input afterschool
 
-# Convert daily.wallstreet into an html table
-wallstreet.html <- knitr::kable(daily.wallstreet, format = 'html')
+# Convert afterschool into an html table
+afterschool.html <- afterschool %>%
+    select(-behaviors.all) %>%
+    knitr::kable(format = 'html',
+                 col.names = c('Grade', 'Advisory', 'Student ID', 'Last Name', 'First Name', 
+                               'Consequence', 'Notes'))
 
 if(num.calls > 0) {
     send_message(mime(from = 'data@climb.kippcolorado.org',
-                      to = 'psetter@kippcolorado.org',
-                      subject = paste('Wall Street', Sys.Date())) %>%
-                    html_body(wallstreet.html)
+                      to = staff.email,
+                      subject = paste('Consequence List', Sys.Date())) %>%
+                    html_body(afterschool.html)
     )
     } else {
         send_message(mime(from = 'data@climb.kippcolorado.org',
-                          to = 'psetter@kippcolorado.org',
-                          subject = paste('Wall Street', Sys.Date())) %>%
-                    text_body('No Wall Streets Today!')
+                          to = staff.email,
+                          subject = paste('Consequence List', Sys.Date())) %>%
+                    text_body('No after school consequences today!')
         )}
 # Send an email with the list
