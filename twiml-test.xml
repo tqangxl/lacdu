@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Say voice="woman">This is a test call. Please let Peter know that you received it.</Say>
+    <Say voice="woman" loop = '4'>Message from KMCP. Your student has to stay after school today. Please check your text and email for more information.</Say>
 </Response>

@@ -31,7 +31,6 @@ CheckTwilioResponse <- function(response.object, current.student, current.number
 
 ########
 
-load('.twilio.RData')
 # Authenticate with Twilio
 
 auth.request <- paste0('https://', twilio.sid, ':', twilio.token, 
@@ -56,13 +55,13 @@ sms.request <- paste0(auth.request, '/',
 # Merge primary phone numbers
 
 # For use on PC
-ch <- odbcConnect('Blackstone')
-contacts <- sqlQuery(ch, 'SELECT * FROM contact_test')
-close(ch)
+#ch <- odbcConnect('Blackstone')
+#contacts <- sqlQuery(ch, 'SELECT * FROM contact_test')
+#close(ch)
 
 # For use on Blackstone
-#kippco <- src_postgres('kippco')
-#contacts <- tbl(kippco, 'contact_test')
+kippco <- src_postgres('kippco')
+contacts <- tbl(kippco, 'contact_test')
 
 # TODO: Clean-up test code
 #load('test-numbers.RData')

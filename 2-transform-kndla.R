@@ -28,7 +28,7 @@ current.date <- Sys.Date()
 dow <- weekdays(current.date)
 
 
-if(dow == 'Wednesday') {
+if(dow == 'Tuesday') {
     ls.df.filtered <- ls.df %>%
         filter(between(entry_time,
                        ymd_hms(paste(current.date, '00:00:00'), tz = 'MST'),

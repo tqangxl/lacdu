@@ -27,13 +27,18 @@ ls.df <- lapply(ls.report, function(x) {
 current.date <- Sys.Date()
 dow <- weekdays(current.date)
 
+# Get current advisories
+source('advisory-query.R')
 
-if(dow == 'Tuesday') {
+if(dow == 'Wednesday') {
     ls.df.filtered <- ls.df %>%
         filter(between(entry_time,
                        ymd_hms(paste(current.date, '00:00:00'), tz = 'MST'),
                        ymd_hms(paste(current.date, '12:30:00'), tz = 'MST'))
         )
+    
+    advisories <- advisories %>%
+        filter(timeblock_name = '0')
     
 } else {
     ls.df.filtered <- ls.df %>%
@@ -41,10 +46,12 @@ if(dow == 'Tuesday') {
                        ymd_hms(paste(current.date, '00:00:00'), tz = 'MST'),
                        ymd_hms(paste(current.date, '15:00:00'), tz = 'MST'))
         )
+    
+    advisories <- advisories %>%
+        filter(timeblock_name = '7')
 }
 
-# Get current advisories
-source('advisory-query.R')
+
 
 afterschool <- ls.df.filtered %>%
     filter(behavior_amount < 0 | behavior_name == 'Office Hours (Sign Up)') %>%
