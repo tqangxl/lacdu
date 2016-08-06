@@ -25,25 +25,22 @@ CallHelp <- function(message) {
 
 ########
 # Extract Data
-load('.KSPA-LS.RData')
+load('.KNDLA-LS.RData')
 source('1-get.R')
 
 # Transform the data
-source('2-transform-kspa.R')
+source('2-transform-kndla.R')
 
 num.calls <- nrow(afterschool)
 
 # Make calls
 # Reference to TWIML file with instructions
 call.orders <- 'https://handler.twilio.com/twiml/EH0a4d09a9a77bf90af8c63114d59932f6'
-load('.twilio-kspa.RData')
+load('.twilio-kndla.RData')
 office.email <- 'psetter@kippcolorado.org; data@climb.kippcolorado.org'
 #if(num.calls > 0) source('3-call.R')
 
 # Email report
-#staff.email <- 'kspa_staff@kippcolorado.org'
+#staff.email <- 'kndla_staff@kippcolorado.org'
 staff.email <- 'psetter@kippcolorado.org'
 source('4-email.R')
-
-# Insert ls.insert into the liveschool table
-#source('5-database.R')

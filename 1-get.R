@@ -35,9 +35,8 @@ rm(LS.username, LS.password)
 # Time for API call is 12 hours ahead of Mountain Time
 # Use Sys.Date + 1 in order to request records for after 12:00 PM
 api.call <- paste0('https://admin.liveschoolinc.com/api?action=genericconducts2&mode=reports&from=', 
-    #Sys.Date(), '&to=', Sys.Date() + 1)
-    '2016-07-28', '&to=', '2016-07-29')
-# TODO: Check for valid input
+    Sys.Date() - 3, '&to=', Sys.Date() + 1)
+
 for(i in 1:5) {
     ls.data <- GET(api.call)
     if(ls.data$status == 200) break

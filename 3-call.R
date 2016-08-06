@@ -6,7 +6,6 @@
 
 ########
 ## Function Definitions
-# TODO: Add failure info to list that can be sent to office staff
 CheckTwilioResponse <- function(response.object, current.student, current.number) {
     # Check if Twilio response status was successful
     if(response.object$status != 201) {
@@ -19,12 +18,14 @@ CheckTwilioResponse <- function(response.object, current.student, current.number
         failure.info <- paste(current.student, 
                               current.number,
                               sms.or.call,
-                              response.object$status)
+                              response.object$status,
+                              '\n')
         
         # Print to standard output and email for help
         print(failure.info)
         
         CallHelp(failure.info)
+        
     }
 }
 
@@ -53,24 +54,36 @@ sms.request <- paste0(auth.request, '/',
                       '/Messages')
 
 # Merge primary phone numbers
-# TODO: Add real numbers
-# Number format: +11234567890
 
-load('test-numbers.RData')
+# For use on PC
+ch <- odbcConnect('Blackstone')
+contacts <- sqlQuery(ch, 'SELECT * FROM contact_test')
+close(ch)
 
-phonenumber <- rep(test.numbers, ceiling(num.calls / 3))[1:num.calls]
+# For use on Blackstone
+#kippco <- src_postgres('kippco')
+#contacts <- tbl(kippco, 'contact_test')
 
-email.address <- rep('psetter@kippcolorado.org', ceiling(num.calls / 3))[1:num.calls]
+# TODO: Clean-up test code
+#load('test-numbers.RData')
 
-call.list <- daily.wallstreet %>%
-    cbind(phonenumber, email.address)
+#phonenumber <- rep(test.numbers, ceiling(num.calls / 3))[1:num.calls]
+
+#email.address <- rep('psetter@kippcolorado.org', ceiling(num.calls / 3))[1:num.calls]
+
+call.list <- merge(afterschool, contacts,
+                   by.x = 'student_number',
+                   by.y = 'studentid',
+                   all.x = TRUE) %>%
+    mutate(call = 'failed',
+           sms = 'failed')
 
     
 for(i in 1:1) {
     current.number <- call.list[i, 'phonenumber'] %>% as.character
     current.student <- paste(call.list[i, 'student_last_name'],
                              call.list[i, 'student_first_name'])
-    current.email <- call.list[i, 'email.address'] %>% as.character
+    current.email <- call.list[i, 'email'] %>% as.character
     
     call.response <- POST(call.request,
                           body = list(From = twilio.phonenumber,
@@ -78,13 +91,20 @@ for(i in 1:1) {
                                       Url = call.orders))
     
     # Printing the response requires the xml2 package
+    # CheckTwilioResponse calls data@climb for help and prints to sdout
     CheckTwilioResponse(call.response, current.student, current.number)
     
+    # Modify call.list for forwarding to office staff for follow-up
+    if(call.response$status == 201) {
+        call.list[i, 'call'] <- 'success'
+    }
+    
+    
     # Send SMS with more detailed information
-    sms.body <- paste('Msg from KMCHS:',
+    sms.body <- paste('Msg from KIPP:',
                       call.list[i, 'student_first_name'], 
-                      'earned Wall St. from:',
-                      call.list[i, 'classes']) %>%
+                      'will need to stay after school for',
+                      call.list[i, 'behaviors.all']) %>%
         substr(start = 1, stop = 140)
     
     sms.response <- POST(sms.request,
@@ -92,23 +112,41 @@ for(i in 1:1) {
                                       To = current.number,
                                       Body = sms.body))
     
+    
     CheckTwilioResponse(sms.response, current.student, current.number)
     
+    if(sms.response$status == 201) {
+        call.list[i, 'call'] <- 'success'
+    }
+    
     email.body <- paste(call.list[i, 'student_first_name'],
-                        'earned Wall Street today from',
-                        call.list[i, 'classes'],
+                        'will need to stay after school today for',
+                        call.list[i, 'consequence'],
                         '\n',
-                        'Notes from his teachers:',
+                        'Notes from their teachers:',
                         '\n',
-                        gsub(';', '\n', call.list[i, 'notes'])
+                        gsub(';', '\n', call.list[i, 'notes.all'])
                         )
     
-    send_message(mime(from = 'data@climb.kippcolorado.org',
+    send_message(mime(from = 'noreply@climb.kippcolorado.org',
                       to = current.email,
-                      subject = paste('Msg from KMCHS RE: Wall Street')) %>%
+                      subject = paste('Msg from KIPP RE: Staying After School Today')) %>%
                      text_body(email.body)
     )
 }
+
+# Send email to office staff with list of failed calls and SMS
+office.body <- call.list %>%
+    filter(call == 'failed' || sms == 'failed') %>%
+    select(student_number, student_last_name, student_first_name, consequence,
+           phonenumber, call, sms) %>%
+    knitr::kable(format = 'html')
+
+send_message(mime(from = 'noreply@climb.kippcolorado.org',
+                  to = office.email,
+                  subject = paste('Failed Calls & SMS')) %>%
+                 html_body(office.body)
+)
 
 # Clean-up
 rm(twilio.sid, twilio.token, twilio.phonenumber)

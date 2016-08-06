@@ -11,15 +11,14 @@ afterschool.html <- afterschool %>%
                                'Consequence', 'Notes'))
 
 if(num.calls > 0) {
-    send_message(mime(from = 'data@climb.kippcolorado.org',
+    send_message(mime(from = 'noreply@climb.kippcolorado.org',
                       to = staff.email,
                       subject = paste('Consequence List', Sys.Date())) %>%
                     html_body(afterschool.html)
     )
     } else {
-        send_message(mime(from = 'data@climb.kippcolorado.org',
+        send_message(mime(from = 'noreply@climb.kippcolorado.org',
                           to = staff.email,
                           subject = paste('Consequence List', Sys.Date())) %>%
                     text_body('No after school consequences today!')
         )}
-# Send an email with the list
