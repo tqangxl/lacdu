@@ -75,7 +75,8 @@ afterschool <- rbind(auto, cp3, wh3) %>%
               notes.all = paste(notes, collapse = '\n ')) %>%
     merge(x = ., y = advisories,
           by.x = 'student_number',
-          by.y = 'local_student_id') %>%
+          by.y = 'local_student_id',
+          all.x = TRUE) %>%
     select(grade, advisory = s_group, student_number, student_last_name, student_first_name,
            consequence, behaviors.all, notes.all) %>%
     arrange(consequence, grade,student_last_name, student_first_name)
