@@ -39,12 +39,12 @@ if(dow == 'Monday') {
     ls.df.filtered <- ls.df %>%
         filter(between(entry_time,
                        ymd_hms(paste(current.date - 1, '14:31:00'), tz = 'MST'),
-                       ymd_hms(paste(current.date, '14:30:00'), tz = 'MST'))
+                       ymd_hms(paste(current.date, '13:00:00'), tz = 'MST'))
                & standard_name == 'Be Nice Detention')
 } else if(dow == 'Wednesday') {
     ls.df.filtered <- ls.df %>%
         filter((between(entry_time,
-                       ymd_hms(paste(current.date - 1, '14:31:00'), tz = 'MST'),
+                       ymd_hms(paste(current.date - 1, '13:0:01'), tz = 'MST'),
                        ymd_hms(paste(current.date, '14:30:00'), tz = 'MST'))
                & standard_name == 'Be Nice Detention')
                |
