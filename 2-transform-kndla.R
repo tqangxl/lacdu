@@ -46,8 +46,7 @@ if(dow == 'Tuesday') {
 }
 
 
-
-
+source('advisory-query.R')
 
 afterschool <- ls.df.filtered %>%
     group_by(student_number, student_last_name, student_first_name) %>%
