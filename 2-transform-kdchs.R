@@ -38,7 +38,7 @@ if(dow == 'Wednesday') {
         )
     
     advisories <- advisories %>%
-        filter(timeblock_name = '0')
+        filter(timeblock_name == '0')
     
 } else {
     ls.df.filtered <- ls.df %>%
@@ -48,7 +48,7 @@ if(dow == 'Wednesday') {
         )
     
     advisories <- advisories %>%
-        filter(timeblock_name = '7')
+        filter(timeblock_name == '7')
 }
 
 
