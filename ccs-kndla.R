@@ -44,3 +44,6 @@ office.email <- 'psetter@kippcolorado.org; data@climb.kippcolorado.org'
 #staff.email <- 'kndla_staff@kippcolorado.org'
 staff.email <- 'psetter@kippcolorado.org'
 source('4-email.R')
+
+# Clean-up
+rm(list = ls())

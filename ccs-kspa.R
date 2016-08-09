@@ -45,5 +45,5 @@ office.email <- 'psetter@kippcolorado.org; data@climb.kippcolorado.org'
 staff.email <- 'psetter@kippcolorado.org'
 source('4-email.R')
 
-# Insert ls.insert into the liveschool table
-#source('5-database.R')
+# Clean-up
+rm(list = ls())
