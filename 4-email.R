@@ -6,9 +6,8 @@
 # Convert afterschool into an html table
 afterschool.html <- afterschool %>%
     select(-behaviors.all) %>%
-    knitr::kable(format = 'html',
-                 col.names = c('Grade', 'Advisory', 'Student ID', 'Last Name', 'First Name', 
-                               'Consequence', 'Notes'))
+    htmlTable::htmlTable(mx, 
+                         col.rgroup = c("none", "#EFEFF0"))
 
 if(num.calls > 0) {
     send_message(mime(from = 'noreply@climb.kippcolorado.org',

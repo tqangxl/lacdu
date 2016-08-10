@@ -46,4 +46,4 @@ staff.email <- 'psetter@kippcolorado.org'
 source('4-email.R')
 
 # Clean-up
-rm(list = ls())
+#rm(list = ls())

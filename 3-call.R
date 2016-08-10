@@ -139,7 +139,8 @@ office.body <- call.list %>%
     filter(call == 'failed' || sms == 'failed') %>%
     select(student_number, student_last_name, student_first_name, consequence,
            phonenumber, call, sms) %>%
-    knitr::kable(format = 'html')
+    htmlTable::htmlTable(mx, 
+                         col.rgroup = c("none", "#EFEFF0"))
 
 send_message(mime(from = 'noreply@climb.kippcolorado.org',
                   to = office.email,
