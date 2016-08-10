@@ -78,7 +78,7 @@ call.list <- merge(afterschool, contacts,
            sms = 'failed')
 
     
-for(i in 1:1) {
+for(i in 3:nrow(afterschool)) {
     current.number <- call.list[i, 'phonenumber'] %>% as.character
     current.student <- paste(call.list[i, 'student_last_name'],
                              call.list[i, 'student_first_name'])
@@ -115,7 +115,7 @@ for(i in 1:1) {
     CheckTwilioResponse(sms.response, current.student, current.number)
     
     if(sms.response$status == 201) {
-        call.list[i, 'call'] <- 'success'
+        call.list[i, 'sms'] <- 'success'
     }
     
     email.body <- paste(call.list[i, 'student_first_name'],
@@ -126,12 +126,13 @@ for(i in 1:1) {
                         '\n',
                         gsub(';', '\n', call.list[i, 'notes.all'])
                         )
-    
+    if(!is.na(current.email)) {
     send_message(mime(from = 'noreply@climb.kippcolorado.org',
                       to = current.email,
                       subject = paste('Msg from KIPP RE: Staying After School Today')) %>%
                      text_body(email.body)
     )
+    }
 }
 
 # Send email to office staff with list of failed calls and SMS
@@ -139,8 +140,7 @@ office.body <- call.list %>%
     filter(call == 'failed' || sms == 'failed') %>%
     select(student_number, student_last_name, student_first_name, consequence,
            phonenumber, call, sms) %>%
-    htmlTable::htmlTable(mx, 
-                         col.rgroup = c("none", "#EFEFF0"))
+    htmlTable::htmlTable(col.rgroup = c("none", "#EFEFF0"))
 
 send_message(mime(from = 'noreply@climb.kippcolorado.org',
                   to = office.email,

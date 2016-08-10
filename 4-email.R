@@ -6,8 +6,7 @@
 # Convert afterschool into an html table
 afterschool.html <- afterschool %>%
     select(-behaviors.all) %>%
-    htmlTable::htmlTable(mx, 
-                         col.rgroup = c("none", "#EFEFF0"))
+    htmlTable::htmlTable(col.rgroup = c("none", "#EFEFF0"))
 
 if(num.calls > 0) {
     send_message(mime(from = 'noreply@climb.kippcolorado.org',
