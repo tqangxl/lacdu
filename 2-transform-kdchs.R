@@ -34,17 +34,26 @@ if(dow == 'Wednesday') {
     ls.df.filtered <- ls.df %>%
         filter(between(entry_time,
                        ymd_hms(paste(current.date, '00:00:00'), tz = 'MST'),
-                       ymd_hms(paste(current.date, '12:30:00'), tz = 'MST'))
+                       ymd_hms(paste(current.date, '13:10:00'), tz = 'MST'))
         )
     
     advisories <- advisories %>%
-        filter(timeblock_name == '0')
+        filter(timeblock_name == '7')
     
+} else if(dow == 'Thursday') {
+    ls.df.filtered <- ls.df %>%
+        filter(between(entry_time,
+                       ymd_hms(paste(current.date, '00:00:00'), tz = 'MST'),
+                       ymd_hms(paste(current.date, '13:40:00'), tz = 'MST'))
+        )
+    
+    advisories <- advisories %>%
+        filter(timeblock_name == '0')    
 } else {
     ls.df.filtered <- ls.df %>%
         filter(between(entry_time,
                        ymd_hms(paste(current.date, '00:00:00'), tz = 'MST'),
-                       ymd_hms(paste(current.date, '15:00:00'), tz = 'MST'))
+                       ymd_hms(paste(current.date, '14:40:00'), tz = 'MST'))
         )
     
     advisories <- advisories %>%
@@ -56,14 +65,14 @@ if(dow == 'Wednesday') {
 afterschool <- ls.df.filtered %>%
     filter(behavior_amount < 0 | behavior_name == 'Office Hours (Sign Up)') %>%
     group_by(student_number, student_last_name, student_first_name) %>%
-    summarize(demerit = sum(behavior_amount < 0),
+    summarize(demerit = abs(sum(behavior_amount)),
               hwdet = sum(behavior_name == 'Missing or inc homework'),
               oh = sum(behavior_name == 'Office Hours (Sign Up)'),
               behaviors.all = paste(behavior_name, collapse = ', '),
               notes.all = paste(user_last_name, behavior_name, conduct_comment, collapse = '; ')) %>%
     CaseStatement(consequence,
                   demerit >= 3 ~ 'Detention',
-                  hwdet > 0 ~ 'Detention',
+                  hwdet > 0 ~ 'HW Det',
                   oh > 0 ~ 'Office Hours',
                   ~ 'None') %>%
     filter(consequence != 'None') %>%
@@ -74,3 +83,7 @@ afterschool <- ls.df.filtered %>%
     select(grade, advisory = s_group, student_number, student_last_name, student_first_name,
            consequence, behaviors.all, notes.all) %>%
     arrange(grade, advisory, student_last_name, student_first_name)
+
+afterschool.email <- afterschool %>%
+    select(grade, advisory, student_number, student_last_name, student_first_name,
+           consequence, behaviors.all)

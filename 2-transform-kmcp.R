@@ -88,6 +88,5 @@ afterschool <- ls.df.filtered %>%
            consequence, behaviors.all, notes.all) %>%
     arrange(grade, advisory, student_last_name, student_first_name)
 
-
-
+afterschool.email <- afterschool
 

@@ -4,7 +4,7 @@
 # Input afterschool
 
 # Convert afterschool into an html table
-afterschool.html <- afterschool %>%
+afterschool.html <- afterschool.email %>%
     select(-behaviors.all) %>%
     htmlTable::htmlTable(col.rgroup = c("none", "#EFEFF0"))
 

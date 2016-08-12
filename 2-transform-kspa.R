@@ -80,3 +80,6 @@ afterschool <- rbind(auto, cp3, wh3) %>%
     select(grade, advisory = s_group, student_number, student_last_name, student_first_name,
            consequence, behaviors.all, notes.all) %>%
     arrange(consequence, grade,student_last_name, student_first_name)
+
+afterschool.email <- afterschool %>%
+    select(consequence, grade, student_number, student_last_name, student_first_name)
