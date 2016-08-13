@@ -5,7 +5,6 @@
 
 # Convert afterschool into an html table
 afterschool.html <- afterschool.email %>%
-    select(-behaviors.all) %>%
     htmlTable::htmlTable(col.rgroup = c("none", "#EFEFF0"))
 
 if(num.calls > 0) {

@@ -23,32 +23,5 @@ ls.df <- lapply(ls.report, function(x) {
     mutate(entry_time = parse_date_time(time_of_behavior, tz = 'MST',
                                         orders = '%Y-%m-%d %I:%M:%S %p'))
 
-# Select records and columns for Wall Street
-# TODO: Add advisory and grade then sort by these fields
 
-source('advisory-query.R')
 
-daily.wallstreet <- ls.df %>%
-    filter(#entry_time >= ymd_hms(paste(Sys.Date(), '00:00:00'), tz = 'MST'),
-           entry_time >= ymd_hms(paste('2016-05-11', '00:00:00'), tz = 'MST'),
-           standard_name == 'Wall Street') %>%
-    group_by(student_number, student_last_name, student_first_name) %>%
-    summarize(wall_streets = n(),
-              # Source: http://stackoverflow.com/a/20854935/5408193
-              classes = paste(behavior_name, collapse = ', '),
-              notes = paste(behavior_name, conduct_comment, collapse = '; '))
-
-# Select records and columns to add to database
-# In order to avoid duplicates, select data between Wall Streets.
-# TODO: Add Friday afternoon data. Separate script & cron job?
-ls.insert <- ls.df %>%
-    select(conduct_id,
-           student_id = student_number,
-           user_id = user_number,
-           standard_name,
-           behavior_name,
-           behavior_points = behavior_amount,
-           comments = conduct_comment,
-           entry_time) %>%
-    filter(entry_time > ymd_hms(paste(Sys.Date()-1, '15:30:00'), tz = 'MST') & 
-        entry_time <= ymd_hms(paste(Sys.Date(), '15:30:00'), tz = 'MST'))

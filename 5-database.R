@@ -9,5 +9,19 @@ escape.POSIXt <- dplyr:::escape.Date
 # Connect to database
 kippco.db <- src_postgres('kippco')
 
+indb <- tbl(kippco.db, 'liveschool') %>%
+    filter(entry_date >= Sys.Date() - 3)
+
+ls.insert <- ls.df %>%
+    select(conduct_id,
+           student_id = student_number,
+           user_id = user_number,
+           standard_name,
+           behavior_name,
+           behavior_points = behavior_amount,
+           comments = conduct_comment,
+           entry_time) %>%
+    anti_join(indb)
+
 # Insert new values
 db_insert_into(kippco.db$con, 'liveschool', ls.insert)
