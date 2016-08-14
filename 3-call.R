@@ -63,19 +63,13 @@ sms.request <- paste0(auth.request, '/',
 kippco <- src_postgres('kippco')
 contacts <- tbl(kippco, 'contact_test')
 
-# TODO: Clean-up test code
-#load('test-numbers.RData')
-
-#phonenumber <- rep(test.numbers, ceiling(num.calls / 3))[1:num.calls]
-
-#email.address <- rep('psetter@kippcolorado.org', ceiling(num.calls / 3))[1:num.calls]
-
 call.list <- merge(afterschool, contacts,
                    by.x = 'student_number',
                    by.y = 'studentid',
                    all.x = TRUE) %>%
     mutate(call = 'failed',
-           sms = 'failed')
+           sms = 'failed',
+           email.msg = 'failed')
 
     
 for(i in 33:nrow(afterschool)) {
@@ -126,20 +120,24 @@ for(i in 33:nrow(afterschool)) {
                         '\n',
                         gsub(';', '\n', call.list[i, 'notes.all'])
                         )
-    if(!is.na(current.email)) {
+    email.message <- try(
     send_message(mime(from = 'noreply@climb.kippcolorado.org',
                       to = current.email,
                       subject = paste('Msg from KIPP RE: Staying After School Today')) %>%
                      text_body(email.body)
+                 )
     )
+    
+    if(class(email.message) != 'try-error') {
+        call.list[i, 'email.msg'] <- 'success'
     }
 }
 
 # Send email to office staff with list of failed calls and SMS
 office.body <- call.list %>%
-    filter(call == 'failed' || sms == 'failed') %>%
+    filter(call == 'failed' | sms == 'failed' | email == 'failed') %>%
     select(student_number, student_last_name, student_first_name, consequence,
-           phonenumber, call, sms) %>%
+           phonenumber, call, sms, email.msg, email) %>%
     htmlTable::htmlTable(col.rgroup = c("none", "#EFEFF0"))
 
 send_message(mime(from = 'noreply@climb.kippcolorado.org',

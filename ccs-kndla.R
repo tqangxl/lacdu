@@ -35,9 +35,15 @@ num.calls <- nrow(afterschool)
 
 # Make calls
 # Reference to TWIML file with instructions
-call.orders <- 'https://handler.twilio.com/twiml/EHa676baf2e7284276129c95ac9cb84aa0'
+dow <- weekdays(current.date)
+
+if(dow == 'Tuesday') {
+    call.orders <- 'https://handler.twilio.com/twiml/EH57cbe7b4efe9bc8e5eab8a826417dd8a'
+} else {
+    call.orders <- 'https://handler.twilio.com/twiml/EH19354410d356efc1014fd6ef4ba64719'
+}
 load('.twilio-kndla.RData')
-office.email <- 'psetter@kippcolorado.org; data@climb.kippcolorado.org'
+office.email <- 'psetter@kippcolorado.org; rbibby@kippcolorado.org'
 #if(num.calls > 0) source('3-call.R')
 
 # Email report
