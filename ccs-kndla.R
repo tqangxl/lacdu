@@ -44,12 +44,14 @@ if(dow == 'Tuesday') {
 }
 load('.twilio-kndla.RData')
 office.email <- 'psetter@kippcolorado.org; rbibby@kippcolorado.org'
-#if(num.calls > 0) source('3-call.R')
+if(num.calls > 0) source('3-call.R')
 
 # Email report
 #staff.email <- 'kndla_staff@kippcolorado.org'
 staff.email <- 'psetter@kippcolorado.org'
 source('4-email.R')
+
+source('5-database.R')
 
 # Clean-up
 rm(list = ls())

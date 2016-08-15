@@ -42,8 +42,10 @@ office.email <- 'psetter@kippcolorado.org; data@climb.kippcolorado.org'
 
 # Email report
 #staff.email <- 'kmcp_staff@kippcolorado.org'
-staff.email <- 'psetter@kippcolorado.org'
+staff.email <- 'kmcp_staff@kippcolorado.org; psetter@kippcolorado.org'
 source('4-email.R')
+
+source('5-database.R')
 
 # Clean-up
 rm(list = ls())

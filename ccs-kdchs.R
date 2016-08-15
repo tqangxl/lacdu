@@ -31,19 +31,39 @@ source('1-get.R')
 # Transform the data
 source('2-transform-kdchs.R')
 
-num.calls <- nrow(afterschool)
+all.calls <- afterschool
 
 # Make calls
 # Reference to TWIML file with instructions
-call.orders <- 'https://handler.twilio.com/twiml/EHcb1dfb652469515869cfa30b50998f1f'
+office.email <- 'psetter@kippcolorado.org'
+
+# Office Hours
+afterschool <- all.calls %>%
+    filter(consequence == 'Office Hours')
+num.calls <- nrow(afterschool)
+
+call.orders <- 'https://handler.twilio.com/twiml/EH1b6af133e8c0038ce11d7df088aa2a9a'
 load('.twilio-kdchs.RData')
-office.email <- 'psetter@kippcolorado.org; data@climb.kippcolorado.org'
-#if(num.calls > 0) source('3-call.R')
+if(num.calls > 0) source('3-call.R')
+
+# Detention
+afterschool <- all.calls %>%
+    filter(consequence != 'Office Hours')
+
+num.calls <- nrow(afterschool)
+
+
+call.orders <- 'https://handler.twilio.com/twiml/EH3d798e75f8e2b1956cdcc270317aa24a'
+load('.twilio-kdchs.RData')
+
+if(num.calls > 0) source('3-call.R')
 
 # Email report
 #staff.email <- 'kdchs_staff@kippcolorado.org'
 staff.email <- 'psetter@kippcolorado.org'
 source('4-email.R')
+
+source('5-database.R')
 
 # Clean-up
 rm(list = ls())
