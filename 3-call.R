@@ -72,7 +72,7 @@ call.list <- merge(afterschool, contacts,
            email.msg = 'failed')
 
     
-for(i in 33:nrow(afterschool)) {
+for(i in 1:nrow(afterschool)) {
     current.number <- call.list[i, 'phonenumber'] %>% as.character
     current.student <- paste(call.list[i, 'student_last_name'],
                              call.list[i, 'student_first_name'])
