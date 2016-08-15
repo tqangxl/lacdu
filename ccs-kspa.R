@@ -42,7 +42,7 @@ office.email <- 'spagan@kippcolorado.org; rcozens@kippcolorado.org; rmolinar@kip
 if(num.calls > 0) source('3-call.R')
 
 # Email report
-staff.email <- 'kspa_staff@kippcolorado.org; psetter@kippcolorado.org'
+staff.email <- 'spagan@kippcolorado.org; rcozens@kippcolorado.org; rmolinar@kippcolorado.org; psetter@kippcolorado.org'
 #staff.email <- 'psetter@kippcolorado.org'
 source('4-email.R')
 

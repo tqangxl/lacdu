@@ -37,12 +37,12 @@ num.calls <- nrow(afterschool)
 # Reference to TWIML file with instructions
 call.orders <- 'https://handler.twilio.com/twiml/EH680c5a2f9c14b8a8d559af6f5a3eb988'
 load('.twilio-kmcp.RData')
-office.email <- 'psetter@kippcolorado.org; data@climb.kippcolorado.org'
+office.email <- 'iflores@kippcolorado.org; dloveall@kippcolorado.org; psetter@climb.kippcolorado.org'
 #if(num.calls > 0) source('3-call.R')
 
 # Email report
 #staff.email <- 'kmcp_staff@kippcolorado.org'
-staff.email <- 'kmcp_staff@kippcolorado.org; psetter@kippcolorado.org'
+staff.email <- 'iflores@kippcolorado.org; dloveall@kippcolorado.org; psetter@kippcolorado.org'
 source('4-email.R')
 
 source('5-database.R')
