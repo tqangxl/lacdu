@@ -24,7 +24,7 @@ CheckTwilioResponse <- function(response.object, current.student, current.number
         # Print to standard output and email for help
         print(failure.info)
         
-        CallHelp(failure.info)
+        #CallHelp(failure.info)
         
     }
 }
@@ -135,7 +135,7 @@ for(i in 1:nrow(afterschool)) {
 
 # Send email to office staff with list of failed calls and SMS
 office.body <- call.list %>%
-    filter(call == 'failed' | sms == 'failed' | email == 'failed') %>%
+    #filter(call == 'failed' | sms == 'failed' | email == 'failed') %>%
     select(student_number, student_last_name, student_first_name, consequence,
            phonenumber, call, sms, email.msg, email) %>%
     htmlTable::htmlTable(col.rgroup = c("none", "#EFEFF0"))
