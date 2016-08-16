@@ -59,8 +59,7 @@ load('.twilio-kdchs.RData')
 if(num.calls > 0) source('3-call.R')
 
 # Email report
-#staff.email <- 'kdchs_staff@kippcolorado.org'
-staff.email <- 'psetter@kippcolorado.org'
+staff.email <- 'nzamora@kippcolorado.org; cramirez@kippcolorado.org; awykowski@kippcolorado.org; psetter@kippcolorado.org'
 source('4-email.R')
 
 source('5-database.R')

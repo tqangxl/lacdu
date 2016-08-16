@@ -48,7 +48,7 @@ if(num.calls > 0) source('3-call.R')
 
 # Email report
 #staff.email <- 'kndla_staff@kippcolorado.org'
-staff.email <- 'psetter@kippcolorado.org'
+staff.email <- 'rbibby@kippcolorado.org; gerwin@kippcolorado.org; mkreger@kippcolorado.org; psetter@kippcolorado.org'
 source('4-email.R')
 
 source('5-database.R')
