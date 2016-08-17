@@ -35,7 +35,7 @@ all.calls <- afterschool
 
 # Make calls
 # Reference to TWIML file with instructions
-office.email <- 'psetter@kippcolorado.org'
+staff.email <- 'nzamora@kippcolorado.org; cramirez@kippcolorado.org; awykowski@kippcolorado.org; psetter@kippcolorado.org'
 
 # Office Hours
 afterschool <- all.calls %>%
