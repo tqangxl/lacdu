@@ -31,36 +31,36 @@ source('1-get.R')
 # Transform the data
 source('2-transform-kdchs.R')
 
-all.calls <- afterschool
+#all.calls <- afterschool
 
 # Make calls
 # Reference to TWIML file with instructions
-staff.email <- 'nzamora@kippcolorado.org; cramirez@kippcolorado.org; awykowski@kippcolorado.org; psetter@kippcolorado.org'
+#staff.email <- 'nzamora@kippcolorado.org; cramirez@kippcolorado.org; awykowski@kippcolorado.org; psetter@kippcolorado.org'
 
 # Office Hours
-afterschool <- all.calls %>%
+#afterschool <- all.calls %>%
     filter(consequence == 'Office Hours')
-num.calls <- nrow(afterschool)
+#num.calls <- nrow(afterschool)
 
-call.orders <- 'https://handler.twilio.com/twiml/EH1b6af133e8c0038ce11d7df088aa2a9a'
-load('.twilio-kdchs.RData')
-if(num.calls > 0) source('3-call.R')
+#call.orders <- 'https://handler.twilio.com/twiml/EH1b6af133e8c0038ce11d7df088aa2a9a'
+#load('.twilio-kdchs.RData')
+#if(num.calls > 0) source('3-call.R')
 
 # Detention
-afterschool <- all.calls %>%
-    filter(consequence != 'Office Hours')
+#afterschool <- all.calls %>%
+#    filter(consequence != 'Office Hours')
 
-num.calls <- nrow(afterschool)
+#num.calls <- nrow(afterschool)
 
 
-call.orders <- 'https://handler.twilio.com/twiml/EH3d798e75f8e2b1956cdcc270317aa24a'
-load('.twilio-kdchs.RData')
+#call.orders <- 'https://handler.twilio.com/twiml/EH3d798e75f8e2b1956cdcc270317aa24a'
+#load('.twilio-kdchs.RData')
 
-if(num.calls > 0) source('3-call.R')
+#if(num.calls > 0) source('3-call.R')
 
 # Email report
-staff.email <- 'nzamora@kippcolorado.org; cramirez@kippcolorado.org; awykowski@kippcolorado.org; psetter@kippcolorado.org'
-source('4-email.R')
+#staff.email <- 'nzamora@kippcolorado.org; cramirez@kippcolorado.org; awykowski@kippcolorado.org; psetter@kippcolorado.org'
+#source('4-email.R')
 
 source('5-database.R')
 
