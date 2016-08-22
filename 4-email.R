@@ -6,7 +6,7 @@
 # Convert afterschool into an html table
 
 
-if(num.calls > 0) {
+if(nrow(afterschool.email) > 0) {
     afterschool.html <- afterschool.email %>%
         htmlTable::htmlTable(col.rgroup = c("none", "#EFEFF0"))
     
