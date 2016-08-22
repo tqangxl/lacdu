@@ -31,14 +31,29 @@ source('1-get.R')
 # Transform the data
 source('2-transform-kmcp.R')
 
-num.calls <- nrow(afterschool)
-
-# Make calls
-# Reference to TWIML file with instructions
-call.orders <- 'https://handler.twilio.com/twiml/EH680c5a2f9c14b8a8d559af6f5a3eb988'
-load('.twilio-kmcp.RData')
+all.calls <- afterschool
 office.email <- 'iflores@kippcolorado.org; dloveall@kippcolorado.org; psetter@climb.kippcolorado.org'
-#if(num.calls > 0) source('3-call.R')
+load('.twilio-kmcp.RData')
+
+# BND
+afterschool <- all.calls %>%
+    filter(consequence == 'BND')
+
+if(weekdays(Sys.Date()) == 'Tuesday') {
+    call.orders <- 'this'
+} else {
+    call.orders <- 'that'
+}
+
+#if(nrow(afterschool) > 0) source('3-call.R')
+
+# HWC
+afterschool <- all.calls %>%
+    filter(consequence != 'BND')
+
+call.orders <- 'HWC'
+
+#if(nrow(afterschool) > 0) source('3-call.R')
 
 # Email report
 #staff.email <- 'kmcp_staff@kippcolorado.org'

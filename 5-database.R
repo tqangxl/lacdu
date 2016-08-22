@@ -9,7 +9,7 @@ escape.POSIXt <- dplyr:::escape.Date
 # Connect to database
 kippco.db <- src_postgres('kippco')
 
-current.date <- as.POSIXct(Sys.Date() - 3)
+current.date <- as.POSIXct(Sys.Date() - 4)
 
 indb <- tbl(kippco.db, 'liveschool') %>% 
     filter(entry_time >= current.date) %>% 
@@ -24,7 +24,7 @@ ls.insert <- ls.df %>%
            behavior_points = behavior_amount,
            comments = conduct_comment,
            entry_time) %>%
-    anti_join(indb)
+    anti_join(indb, by = 'conduct_id')
 
 # Insert new values
 db_insert_into(kippco.db$con, 'liveschool', ls.insert)

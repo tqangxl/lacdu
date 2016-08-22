@@ -39,7 +39,7 @@ source('2-transform-kdchs.R')
 
 # Office Hours
 #afterschool <- all.calls %>%
-    filter(consequence == 'Office Hours')
+#    filter(consequence == 'Office Hours')
 #num.calls <- nrow(afterschool)
 
 #call.orders <- 'https://handler.twilio.com/twiml/EH1b6af133e8c0038ce11d7df088aa2a9a'

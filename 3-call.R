@@ -146,5 +146,3 @@ send_message(mime(from = 'noreply@climb.kippcolorado.org',
                  html_body(office.body)
 )
 
-# Clean-up
-rm(twilio.sid, twilio.token, twilio.phonenumber)

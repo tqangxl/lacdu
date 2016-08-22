@@ -42,17 +42,39 @@ if(dow == 'Monday') {
                        ymd_hms(paste(current.date, '13:00:00'), tz = 'MST'))
                & standard_name == 'Be Nice Detention')
 } else if(dow == 'Wednesday') {
+    #ls.df.filtered <- ls.df %>%
+    #    filter((between(entry_time,
+    #                   ymd_hms(paste(current.date - 1, '13:0:01'), tz = 'MST'),
+    #                   ymd_hms(paste(current.date, '14:30:00'), tz = 'MST'))
+    #           & standard_name == 'Be Nice Detention')
+    #           |
+    #               (between(entry_time,
+    #                        ymd_hms(paste(current.date - 1, '00:00:00'), tz = 'MST'),
+    #                        ymd_hms(paste(current.date, '14:30:00'), tz = 'MST'))
+    #                & standard_name %in% c('Auto HWC', 'Homework Club'))
+    #           )
+    
     ls.df.filtered <- ls.df %>%
+        mutate(day = wday(entry_time)) %>%
+        group_by(student_number, day) %>%
         filter((between(entry_time,
-                       ymd_hms(paste(current.date - 1, '13:0:01'), tz = 'MST'),
-                       ymd_hms(paste(current.date, '14:30:00'), tz = 'MST'))
-               & standard_name == 'Be Nice Detention')
+                        ymd_hms(paste(current.date - 1, '13:0:01'), tz = 'MST'),
+                        ymd_hms(paste(current.date, '14:30:00'), tz = 'MST'))
+                & standard_name == 'Be Nice Detention')
                |
                    (between(entry_time,
                             ymd_hms(paste(current.date - 1, '00:00:00'), tz = 'MST'),
                             ymd_hms(paste(current.date, '14:30:00'), tz = 'MST'))
-                    & standard_name %in% c('Auto HWC', 'Homework Club'))
-               )
+                    & standard_name == 'Auto HWC')
+               |
+                   (between(entry_time,
+                            ymd_hms(paste(current.date - 1, '00:00:00'), tz = 'MST'),
+                            ymd_hms(paste(current.date, '14:30:00'), tz = 'MST'))
+                    & sum(standard_name == 'Homework Club') >= 2
+                    & standard_name == 'Homework Club')
+        ) %>%
+        ungroup()
+    
 } else {
     ls.df.filtered <- ls.df %>%
         filter(between(entry_time,
@@ -71,6 +93,7 @@ afterschool <- ls.df.filtered %>%
     group_by(student_number, student_last_name, student_first_name) %>%
     summarize(bnd = sum(standard_name == 'Be Nice Detention'),
               autohwc = sum(standard_name == 'Auto HWC'),
+              # Count the number of unique dates for HWC
               hwc = sum(standard_name == 'Homework Club'),
               behaviors.all = paste(behavior_name, collapse = ', '),
               notes.all = paste(user_last_name, behavior_name, conduct_comment, collapse = '; ')) %>%
