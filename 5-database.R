@@ -9,7 +9,7 @@ escape.POSIXt <- dplyr:::escape.Date
 # Connect to database
 kippco.db <- src_postgres('kippco')
 
-current.date <- as.POSIXct(Sys.Date() - 4)
+current.date <- as.POSIXct(Sys.Date() - 5)
 
 indb <- tbl(kippco.db, 'liveschool') %>% 
     filter(entry_time >= current.date) %>% 

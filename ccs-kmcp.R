@@ -40,23 +40,22 @@ afterschool <- all.calls %>%
     filter(consequence == 'BND')
 
 if(weekdays(Sys.Date()) == 'Tuesday') {
-    call.orders <- 'this'
+    call.orders <- 'https://handler.twilio.com/twiml/EHb1e71ddc4e494794cdd4738fcfab3fc3'
 } else {
-    call.orders <- 'that'
+    call.orders <- 'https://handler.twilio.com/twiml/EH33abe4d04ac41abfda62e8ad4a18fc57'
 }
 
-#if(nrow(afterschool) > 0) source('3-call.R')
+if(nrow(afterschool) > 0) source('3-call.R')
 
 # HWC
 afterschool <- all.calls %>%
     filter(consequence != 'BND')
 
-call.orders <- 'HWC'
+call.orders <- 'https://handler.twilio.com/twiml/EH2244639c24b4a1acc65cf547820b1c12'
 
-#if(nrow(afterschool) > 0) source('3-call.R')
+if(nrow(afterschool) > 0) source('3-call.R')
 
 # Email report
-#staff.email <- 'kmcp_staff@kippcolorado.org'
 staff.email <- 'iflores@kippcolorado.org; dloveall@kippcolorado.org; psetter@kippcolorado.org'
 source('4-email.R')
 
