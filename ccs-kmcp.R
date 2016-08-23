@@ -56,7 +56,7 @@ call.orders <- 'https://handler.twilio.com/twiml/EH2244639c24b4a1acc65cf547820b1
 if(nrow(afterschool) > 0) source('3-call.R')
 
 # Email report
-staff.email <- 'iflores@kippcolorado.org; dloveall@kippcolorado.org; psetter@kippcolorado.org'
+staff.email <- 'iflores@kippcolorado.org; dloveall@kippcolorado.org; ddascenzo@kippcolorado.org; psetter@kippcolorado.org'
 source('4-email.R')
 
 source('5-database.R')
